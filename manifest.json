@@ -1,7 +1,7 @@
 {
   "name": "LMS++",
   "version": "1.0",
-  "description": "좀 더 편한 순천향대학교 사이버 강의 수강 툴",
+  "description": "순천향대학교 사이버 강의 수강 툴",
   "manifest_version": 2,
 
   "icons": {
