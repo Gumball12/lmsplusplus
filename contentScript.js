@@ -87,7 +87,10 @@
           document.querySelector('div#play-controller div.vc-pctrl-playback-rate-setbox').style.display = 'block';
 
           // set playback-rate changeable
-          window.uniPlayerConfig.getUniPlayerSettingsData().usePlaybackRate = true;
+          const s = document.createElement('script');
+          s.setAttribute('type', 'text/javascript');
+          s.innerHTML = 'window.uniPlayerConfig.getUniPlayerSettingsData().usePlaybackRate = true;';
+          document.getElementsByTagName('body')[0].appendChild(s);
 
           // playback panel is always displayed
           new MutationObserver(([{ target }]) => {
