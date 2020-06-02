@@ -13,7 +13,9 @@
 
   "permissions": [
     "activeTab",
-    "storage"
+    "storage",
+    "https://lms.sch.ac.kr/*",
+    "https://commons.sch.ac.kr/*"
   ],
 
   "browser_action": {
