@@ -10,7 +10,7 @@ window.addEventListener('load', () => {
     ].reduce((res, r) => res = (url.match(r) !== null) || res, false);
 
     if (!isAvailableUrl) {
-      document.body.innerHTML = url;
+      document.body.innerHTML = '순천향대학교 강의 페이지가 아닙니다 ㅡ.ㅜ';
       return false;
     }
 
