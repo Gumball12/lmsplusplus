@@ -9,6 +9,7 @@
 
 * [설치 방법](#설치-방법)
 * [사용 방법](#사용-방법)
+* [추가 예정 기능](#추가-예정-기능)
 
 만일 사용 중 문제가 발생한 경우에는 [이슈](https://github.com/Gumball12/lms-playbackrate-extension/issues) 페이지를 이용해주세요. 감사합니다.
 
@@ -43,21 +44,19 @@
 
 강의를 모두 듣지 않고도, 강제로 속도를 변경할 수 있게 하는 기능입니다.
 
-'켜짐' 상태가 되면 강의 목록 아이콘이 아래와 같이 사라지게 되며,
+'켜짐' 상태가 되면 좌측 하단에 속도를 변경할 수 있는 패널이 나타납니다.
 
 <p align="center">
-  <img src="https://i.imgur.com/Xp7UUXE.png" alt="course lists">
-</p>
-
-해당 강의를 클릭하게 되면 좌측 하단에 속도를 변경할 수 있는 패널이 나타납니다.
-
-<p align="center">
-  <img src="https://i.imgur.com/Ey2Pdk7.png" alt="playback-rate panel">
+  <img src="https://i.imgur.com/Ey2Pdk7.png" alt="playback-rate panel" height="220">
 </p>
 
 이를 이용해 강의 속도를 변경할 수 있습니다.
 
-## 추가 예정
+#### 유의사항
+
+* 실제 수강 시간은 배속이 아닌 정상적인 속도로 시청한 시간이 적용됩니다.
+
+## 추가 예정 기능
 
 ### 강의 자동 수강
 
