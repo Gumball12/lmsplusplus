@@ -14,7 +14,7 @@
 
       if (!!playback) {
         tools
-          .openBtnReplacement()
+          .videoBtnReplacement()
           .displayPlayback();
       }
     });
@@ -31,9 +31,9 @@
     }
 
     /**
-     * open course button replacement
+     * video button replacement
      */
-    openBtnReplacement() {
+    videoBtnReplacement() {
       console.log('> LOAD :: course button replacement module');
 
       if (this.pageName !== 'courses') {
@@ -128,11 +128,11 @@
     }
 
     /**
-     * update course time
+     * update course learning time
      * 
      * @param {Number} id course id
      */
-    async updateTrack(id) {
+    async updateCourseTime(id) {
       if (this.pageName === 'video') {
         return this;
       }
