@@ -122,8 +122,8 @@
         return this;
       }
 
-      // re-conn session each 10 seconds
-      setInterval(() => fetch('https://lms.sch.ac.kr/course/index.php'), 10000);
+      // re-conn session each 30 seconds
+      setInterval(() => fetch('https://lms.sch.ac.kr/course/index.php'), 30000);
 
       return this;
     }
