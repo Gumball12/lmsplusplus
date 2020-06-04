@@ -15,7 +15,7 @@
       if (!!playback) {
         tools
           .videoBtnReplacement()
-          .courseCompletion()
+          .videoCompletion()
           .displayPlayback();
       }
     });
@@ -129,10 +129,10 @@
     }
 
     /**
-     * course completion
+     * video completion
      */
-    courseCompletion() {
-      console.log('> LOAD :: course completion module');
+    videoCompletion() {
+      console.log('> LOAD :: video completion module');
 
       if (this.pageName !== 'video') {
         return this;
