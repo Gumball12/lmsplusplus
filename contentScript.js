@@ -15,6 +15,7 @@
       if (!!playback) {
         tools
           .videoBtnReplacement()
+          .courseCompletion()
           .displayPlayback();
       }
     });
@@ -123,6 +124,48 @@
 
       // re-conn session each 10 seconds
       setInterval(() => fetch('https://lms.sch.ac.kr/course/index.php'), 10000);
+
+      return this;
+    }
+
+    /**
+     * course completion
+     */
+    courseCompletion() {
+      console.log('> LOAD :: course completion module');
+
+      if (this.pageName !== 'video') {
+        return this;
+      }
+
+      new MutationObserver(function() {
+        if ( // waitting for player inited
+          document.querySelector('div.vc-pctrl-play-progress')
+          && !!document.querySelector('div.vc-pctrl-play-progress').style.width
+        ) {
+          // execute completion module script
+          const s = document.createElement('script');
+          s.setAttribute('type', 'text/javascript');
+    
+          s.innerHTML = `
+            (() => {
+              const duration = bcPlayController.getPlayController()._duration;
+      
+              play_time = duration;
+              SeekWithUpdateCumulativeTime(duration);
+            })();
+          `;
+    
+          document.getElementsByTagName('body')[0].appendChild(s);
+
+          this.disconnect();
+        }
+      }).observe(document, {
+        attributes: true,
+        childList: true,
+        characterData: true,
+        subtree: true,
+      });
 
       return this;
     }
