@@ -146,13 +146,15 @@
           // execute completion module script
           const s = document.createElement('script');
           s.setAttribute('type', 'text/javascript');
-    
+
           s.innerHTML = `
             (() => {
               const duration = bcPlayController.getPlayController()._duration;
-      
+
               play_time = duration;
               SeekWithUpdateCumulativeTime(duration);
+
+              uniPlayer.getVCUniPlayerLayout()._eventTarget.fire(VCUniPlayerLayoutEvent.PLAYER_RESTART);
             })();
           `;
     
