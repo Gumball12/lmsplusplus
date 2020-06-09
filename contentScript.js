@@ -3,21 +3,47 @@
     const tools = new Tools();
 
     // get chrome settings
-    chrome.storage.sync.get(['session', 'playback', 'course'], ({
+    chrome.storage.sync.get(['session', 'playback', 'course'], async ({
       session,
       playback,
       course,
     }) => {
-      if(!!session) {
-        tools.maintainSession();
+      // 1st (using video id)
+      if (!!course && tools.pageName !== 'video') {
+        (await tools.getCourseIds()).forEach(async (courseId) => {
+          const videoInfos = await tools.getVideoInfos(courseId);
+
+          if (videoInfos._length > 0) {
+            const iter = (await tools.filterUnfinishedVideoIds(courseId, videoInfos)).values();
+            let item = iter.next();
+
+            const interval = setInterval(() => {
+              if (item.done) {
+                return clearInterval(interval);
+              }
+
+              tools.updateLearningTime(item.value);
+              item = iter.next();
+
+              return true;
+            }, 100);
+          }
+        });
       }
 
+      // 2nd (remove video id)
       if (!!playback) {
         tools
           .videoBtnReplacement()
           .videoCompletion()
           .displayPlayback();
       }
+
+      if(!!session) {
+        tools.maintainSession();
+      }
+
+      console.log('LMS Extension has been initialized! \'~^ (GitHub: https://git.io/JfiHe)');
     });
   });
 
@@ -27,12 +53,12 @@
   class Tools {
     constructor() {
       this.pageName = Tools.getPageName(window.location.href)[0];
-
-      console.log('LMS Extension loaded! \'~^ (GitHub: https://git.io/JfiHe)');
     }
 
     /**
      * video button replacement
+     * 
+     * @return {Tools} lms tools
      */
     videoBtnReplacement() {
       console.log('> LOAD :: course button replacement module');
@@ -72,6 +98,8 @@
 
     /**
      * display and changeable playback-rate panel
+     * 
+     * @return {Tools} lms tools
      */
     displayPlayback() {
       console.log('> LOAD :: changeable playback-rate module');
@@ -114,6 +142,8 @@
 
     /**
      * maintain session
+     * 
+     * @return {Tools} lms tools
      */
     maintainSession() {
       console.log('> LOAD :: maintain session module');
@@ -130,6 +160,8 @@
 
     /**
      * video completion
+     * 
+     * @return {Tools} lms tools
      */
     videoCompletion() {
       console.log('> LOAD :: video completion module');
@@ -173,44 +205,153 @@
     }
 
     /**
-     * update course learning time
+     * update video watching time
      * 
-     * @param {Number} id course id
+     * @param {String|Number} id video id
+     * @return {Tools} lms tools
      */
-    async updateCourseTime(id) {
-      if (this.pageName === 'video') {
-        return this;
-      }
+    async updateLearningTime(id) {
+      // using attempt index = 4632
+      const attempts = 4632;
 
-      // using attempt index = 65535
-      const attempts = 65535;
-
-      // get course tack id
+      // get course track id
       const trackId = (await (await fetch(`https://lms.sch.ac.kr/mod/xncommons/viewer.php?id=${id}`)).text())
         .match(/\"track\".*?([\d]+?.*?),/)[1].trim();
 
       // update
       await fetch('https://lms.sch.ac.kr/mod/xncommons/action.php', {
         method: 'post',
-        mode: 'cors',
-        credentials: 'include',
-        referrer: 'https://lms.sch.ac.kr/mod/xncommons/viewer.php',
-        referrerPolicy: 'no-referrer-when-downgrade',
-        headers: {
-          accept: '*/*',
-          'accept-language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
-          'cache-control': 'no-cache',
-          'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-          pragma: 'no-cache',
-          'sec-fetch-dest': 'empty',
-          'sec-fetch-mode': 'cors',
-          'sec-fetch-site': 'same-origin',
-          'x-requested-with': 'XMLHttpRequest',
-        },
-        body: `type=track_for_onwindow&track=${trackId}&state=3&position=0&attempts=${attempts}&interval=60`,
+        body: [
+          'type=track_for_onwindow',
+          `track=${trackId}`,
+          'state=3',
+          'position=0',
+          `attempts=${attempts}`,
+          'interval=60',
+        ].join('&'),
       });
 
       return this;
+    }
+
+    /**
+     * filter out unfinished videos
+     * 
+     * @param {String} courseId 
+     * @param {Object} videoInfos video information
+     * @param {String} videoInfos[videoName] video id
+     * @returns {[String]} video ids
+     */
+    async filterUnfinishedVideoIds(courseId, videoInfos) {
+      const titles = (await Tools.getIteratorItems((await Tools.fetchSelectorAll(
+        `https://lms.sch.ac.kr/report/ubcompletion/user_progress_a.php?id=${courseId}`,
+        'table.table.table-bordered.user_progress_table td.text-left',
+      )).values()))
+        .filter(({
+          nextElementSibling: next,
+          nextElementSibling: { nextElementSibling: next2 },
+        }) => (
+          next2.textContent === '-' ||
+          next.textContent > next2.innerText.split('\n')[0]),
+        )
+        .map(({ textContent }) => textContent.trim());
+
+      return titles.map((title) => {
+        return videoInfos[title];
+      });
+    }
+
+    /**
+     * get a list of video informations from a course
+     * 
+     * @param {String} id course id
+     * @returns {Object} video information ({ video name: video id })
+     */
+    async getVideoInfos(id) {
+      const iter = (await Tools.fetchSelectorAll(
+        `https://lms.sch.ac.kr/course/view.php?id=${id}`,
+        'div.total_sections ul.weeks.ubsweeks li.activity.xncommons div.activityinstance a[onclick]',
+      )).values();
+
+      const els = await Tools.getIteratorItems(iter);
+
+      return els.reduce((res, el) => {
+        const key = el.querySelector('span.instancename').innerHTML.match(/^(.*?)</)[1];
+        const value = el.getAttribute('href').match(/\.php\?id=([\d]+?)$/)[1];
+
+        res[key] = value;
+        res._length++;
+
+        return res;
+      }, { _length: 0 });
+    }
+
+    /**
+     * get course id list
+     * 
+     * @returns {[String]} course id list
+     */
+    async getCourseIds() {
+      const iter = (await Tools.fetchSelector(
+        'https://lms.sch.ac.kr',
+        'ul.my-course-lists.coursemos-layout-0',
+      )).querySelectorAll('div.course_box > a').values();
+
+      const els = await Tools.getIteratorItems(iter);
+
+      return els.map((el) => el.getAttribute('href').match(/\?id=([\d]+)$/)[1]);
+    }
+
+    /**
+     * get a list of iterator items
+     * 
+     * @param {Iterable} it iterator
+     * @return {Promise} promise iterator items
+     */
+    static getIteratorItems(it) {
+      return new Promise((res) => {
+        let item = it.next();
+        const result = [];
+
+        while (!item.done) {
+          result.push(item.value);
+          item = it.next();
+        }
+        
+        res(result);
+      });
+    }
+
+    /**
+     * get dom elements selected via selector
+     * 
+     * @param {String} url target url
+     * @param {String} selector selector
+     */
+    static async fetchSelectorAll(url, selector) {
+      return (await Tools.getFetchDom(url)).querySelectorAll(selector);
+    }
+
+    /**
+     * get dom element slected via selector
+     * 
+     * @param {String} url target url
+     * @param {String} selector selector
+     */
+    static async fetchSelector(url, selector) {
+      return (await Tools.getFetchDom(url)).querySelector(selector);
+    }
+
+    /**
+     * get dom elements throught fetch method
+     * 
+     * @param {String} url target url
+     * @return {HTMLElement} fetched dom elements
+     */
+    static async getFetchDom(url) {
+      const root = document.createElement('div');
+      root.innerHTML = await (await fetch(url)).text();
+      return root;
     }
 
     /**
