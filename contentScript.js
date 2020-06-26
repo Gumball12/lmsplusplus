@@ -8,11 +8,17 @@
       playback,
       course,
     }) => {
-      if(!!session) {
+      if(
+        !!session &&
+        tools.pageName !== 'video'
+      ) {
         tools.maintainSession();
       }
 
-      if (!!playback) {
+      if (
+        !!playback &&
+        tools.pageName === 'video'
+      ) {
         tools
           .videoBtnReplacement()
           .videoCompletion()
@@ -35,12 +41,6 @@
      * video button replacement
      */
     videoBtnReplacement() {
-      console.log('> LOAD :: course button replacement module');
-
-      if (this.pageName !== 'courses') {
-        return this;
-      }
-
       document.querySelectorAll('div.activityinstance > a > img[alt="동영상"]')
         .forEach(({ parentElement }) => {
           // get origin link
@@ -74,12 +74,6 @@
      * display and changeable playback-rate panel
      */
     displayPlayback() {
-      console.log('> LOAD :: changeable playback-rate module');
-
-      if (this.pageName !== 'video') {
-        return this;
-      }
-
       // page update observer
       new MutationObserver(function() {
         if (document.querySelector('div#front-screen')) {
@@ -116,15 +110,8 @@
      * maintain session
      */
     maintainSession() {
-      console.log('> LOAD :: maintain session module');
-
-      if (this.pageName === 'video') {
-        return this;
-      }
-
       // re-conn session each 30 seconds
       setInterval(() => fetch('https://lms.sch.ac.kr/course/index.php'), 30000);
-
       return this;
     }
 
@@ -132,12 +119,6 @@
      * video completion
      */
     videoCompletion() {
-      console.log('> LOAD :: video completion module');
-
-      if (this.pageName !== 'video') {
-        return this;
-      }
-
       new MutationObserver(function() {
         if ( // waitting for player inited
           document.querySelector('div.vc-pctrl-play-progress')
