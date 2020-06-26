@@ -1,13 +1,13 @@
 (() => {
   window.addEventListener('load', () => {
-    const tools = new Tools();
-
     // get chrome settings
     chrome.storage.sync.get(['session', 'playback', 'course'], ({
       session,
       playback,
       course,
     }) => {
+      const tools = new Tools({ session, playback, course });
+      
       if(
         !!session &&
         tools.pageName !== 'video'
@@ -31,8 +31,12 @@
    * lms tools
    */
   class Tools {
-    constructor() {
+    /**
+     * @param {Object} conf lms++ configuration
+     */
+    constructor(conf) {
       this.pageName = Tools.getPageName(window.location.href)[0];
+      this.conf = conf;
 
       console.log('LMS Extension loaded! \'~^ (GitHub: https://git.io/JfiHe)');
     }
