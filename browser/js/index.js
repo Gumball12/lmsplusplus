@@ -74,13 +74,20 @@ window.addEventListener('load', () => {
     function videoPageInit() {
       // video download
       document.querySelector('h3.btn[video-download]')
-        .addEventListener('click', () => {
-          // get contentId
+        .addEventListener('click', async () => {
+          // get content id
           const contentId = url.match(/content_id=(.*?)\&/)[1];
-  
+
+          // get media information
+          const mediaInfo = (await (await fetch(`https://commons.sch.ac.kr/viewer/ssplayer/uniplayer_support/content.php?content_id=${contentId}`)).text());
+          const mediaUri = mediaInfo.match(/\<media_uri\>(.*?)\<\/media_uri\>/)[1];
+          const ext = mediaUri.split('').reverse().join('').match(/^(.*?)\./)[1].split('').reverse().join('');
+          // const title = mediaInfo.match(/\<title\>(.*?)\<\/title\>/)[1].replace('<![CDATA[', '').replace(']]>', '').replace(/[\s]|[\t]/g, '_');
+
           // download
           chrome.downloads.download({
-            url: `https://sch.commonscdn.com/contents2/sch1000001/${contentId}/contents/media_files/mobile/ssmovie.mp4`,
+            url: mediaUri,
+            filename: `화이팅.${ext}`,
           });
         });
     }
