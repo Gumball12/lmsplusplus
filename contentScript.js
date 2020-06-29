@@ -40,7 +40,7 @@
      */
     videoBtnReplacement() {
       if (this.pageName === 'video') {
-        return false;
+        return this;
       }
 
       document.querySelectorAll('div.activityinstance > a > img[alt="동영상"]')
@@ -77,7 +77,7 @@
      */
     displayPlayback() {
       if (this.pageName !== 'video') {
-        return false;
+        return this;
       }
 
       // page update observer
@@ -117,7 +117,7 @@
      */
     maintainSession() {
       if (this.pageName === 'video') {
-        return false;
+        return this;
       }
 
       // re-conn session each 30 seconds
@@ -130,7 +130,7 @@
      */
     videoCompletion() {
       if (this.pageName !== 'video') {
-        return false;
+        return this;
       }
 
       new MutationObserver(function() {
