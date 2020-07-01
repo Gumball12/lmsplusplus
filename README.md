@@ -4,7 +4,7 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/Gumball12/lmsplusplus/issues)
 
 <p align="center">
-  <img src="https://i.imgur.com/cGOcVlO.png" alt="thumbnail">
+  <img src="https://i.imgur.com/wj3LY1j.png" alt="thumbnail">
   <br>
   순천향대학교 사이버 강의 툴
 </p>
