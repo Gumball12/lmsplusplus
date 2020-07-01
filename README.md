@@ -46,6 +46,10 @@
 
 ### 로그인 유지
 
+<p align="center">
+  <img src="https://i.imgur.com/WzT0shn.png" height="220">
+</p>
+
 일정 시간이 지나도 자동으로 로그아웃되지 않게끔 하는 기능입니다.
 
 '켜짐' 상태가 되면 지속적으로 신호를 보내 로그아웃되지 않게끔 합니다.
@@ -57,6 +61,8 @@
 ### 동영상 속도 및 위치 변경
 
 <p align="center">
+  <img src="https://i.imgur.com/KBfKjrw.png" height="220">
+  <br>
   <img src="https://i.imgur.com/deD2cq1.png" alt="playback-rate panel" height="220">
 </p>
 
@@ -69,10 +75,14 @@
 ### 이 강의 다운로드
 
 <p align="center">
-  <img src="https://i.imgur.com/xQ3hLro.png" alt="download this video" height="220">
+  <img src="https://i.imgur.com/eusljt9.png" alt="download this video" height="220">
 </p>
 
-해당 강의를 다운로드합니다.
+원본 비디오 링크를 이용하여 해당 강의를 다운로드합니다.
+
+1. `동영상 속도 및 위치 변경` 기능을 켜 주세요
+1. 다운로드를 원하는 강의 영상에 접속해주세요
+1. 확장 프로그램 아이콘을 누른 뒤, '이 강의 다운로드' 버튼을 클릭해주세요
 
 ## 변경사항
 
