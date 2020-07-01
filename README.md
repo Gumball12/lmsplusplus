@@ -25,9 +25,13 @@
 
 ### 배포 버전
 
+일반적인 경우에는 배포 버전으로 설치해주세요.
+
 [이 링크](https://chrome.google.com/webstore/detail/lms%20%20/kdnnjmhhabnalhbpppkocnplmmebmobh) 를 클릭해 크롬 웹 스토어에서 다운로드 및 설치가 가능합니다.
 
 ### 개발 버전
+
+> 개발 및 테스트를 위한 설치 방법입니다. 일반적인 경우에는 배포 버전으로 설치해주세요.
 
 개발 버전 설치 방법은 다음과 같습니다.
 
