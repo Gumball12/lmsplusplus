@@ -71,23 +71,29 @@ window.addEventListener('load', () => {
     /**
      * video page tools init
      */
-    function videoPageInit() {
+    async function videoPageInit() {
+      // get content id
+      const contentId = url.match(/content_id=(.*?)\&/)[1];
+
+      // get media information
+      const mediaInfo = (await (await fetch(`https://commons.sch.ac.kr/viewer/ssplayer/uniplayer_support/content.php?content_id=${contentId}`)).text());
+      const mediaUri = mediaInfo.match(/\<media_uri\>(.*?)\<\/media_uri\>/)[1];
+      const ext = mediaUri.split('').reverse().join('').match(/^(.*?)\./)[1].split('').reverse().join('');
+      const title = mediaInfo.match(/\<title\>(.*?)\<\/title\>/)[1].replace('<![CDATA[', '').replace(']]>', '').replace(/[\s]|[\t]/g, '_');
+      const safeTitle = title.replace(/\\|\/|\?|\%|\*|\:|\||\"|\<|\>|\./g, '-');
+
+      // set video link
+      const videoLinkTarget = document.querySelector('h4[video-link] > input');
+      videoLinkTarget.value = mediaUri;
+      videoLinkTarget.addEventListener('click', () => videoLinkTarget.select());
+
       // video download
-      document.querySelector('h3.btn[video-download]')
-        .addEventListener('click', async () => {
-          // get content id
-          const contentId = url.match(/content_id=(.*?)\&/)[1];
-
-          // get media information
-          const mediaInfo = (await (await fetch(`https://commons.sch.ac.kr/viewer/ssplayer/uniplayer_support/content.php?content_id=${contentId}`)).text());
-          const mediaUri = mediaInfo.match(/\<media_uri\>(.*?)\<\/media_uri\>/)[1];
-          const ext = mediaUri.split('').reverse().join('').match(/^(.*?)\./)[1].split('').reverse().join('');
-          // const title = mediaInfo.match(/\<title\>(.*?)\<\/title\>/)[1].replace('<![CDATA[', '').replace(']]>', '').replace(/[\s]|[\t]/g, '_');
-
+      document.querySelector('h3[video-download]')
+        .addEventListener('click', () => {
           // download
           chrome.downloads.download({
             url: mediaUri,
-            filename: `화이팅.${ext}`,
+            filename: `${safeTitle}.${ext}`,
           });
         });
     }

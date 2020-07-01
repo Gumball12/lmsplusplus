@@ -41,3 +41,10 @@ footer {
 .hide {
   display: none;
 }
+
+input.video-link {
+  border: 0;
+  border-bottom: 1px solid var(--black);
+  margin-top: 4px;
+  width: 80%;
+}
