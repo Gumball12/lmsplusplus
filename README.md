@@ -1,4 +1,4 @@
-# LMS Chrome Extension (for PC)
+# LMS Chrome Extension (for PC / Chrome)
 
 [![Known Vulnerabilities](https://snyk.io/test/github/Gumball12/lmsplusplus/badge.svg?targetFile=package.json)](https://snyk.io/test/github/Gumball12/lmsplusplus?targetFile=package.json)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/Gumball12/lmsplusplus/issues)
@@ -75,7 +75,7 @@
 ### 이 강의 다운로드
 
 <p align="center">
-  <img src="https://i.imgur.com/eusljt9.png" alt="download this video" height="220">
+  <img src="https://i.imgur.com/Doev26S.png" alt="download this video" height="220">
 </p>
 
 원본 비디오 링크를 이용하여 해당 강의를 다운로드합니다.
@@ -83,6 +83,32 @@
 1. `동영상 속도 및 위치 변경` 기능을 켜 주세요
 1. 다운로드를 원하는 강의 영상에 접속해주세요
 1. 확장 프로그램 아이콘을 누른 뒤, '이 강의 다운로드' 버튼을 클릭해주세요
+
+### 강의 비디오 주소
+
+<p align="center">
+  <img src="https://i.imgur.com/tDa9zPR.png" height="220">
+</p>
+
+간혹 `이 강의 다운로드` 기능이 정상적으로 동작하지 않을 때가 있습니다.
+
+이 경우, 강의 비디오 주소를 이용하여 다운로드가 가능합니다.
+
+1. 강의 비디오의 주소를 클릭하여 선택한 뒤, 복사해주세요
+1. 복사한 주소를 인터넷 창에 붙여넣기해주세요
+1. 우측 하단 메뉴 버튼을 클릭한 뒤, `다운로드` 해주세요
+
+사진으로 보면 다음과 같습니다.
+
+<p align="center">
+  <img src="https://i.imgur.com/CkctUQ7.png" height="180">
+  <img src="https://i.imgur.com/JpQBmKB.png" height="180">
+</p>
+
+#### 유의사항
+
+* `이 강의 다운로드` 기능이 정상적으로 동작하지 않는다면, 아래의 '강의 비디오 주소'를 복사한 뒤
+* 인터넷 주소창에 
 
 ## 변경사항
 
