@@ -39,6 +39,8 @@
   <img src="https://i.imgur.com/WzT0shn.png" height="220">
 </p>
 
+강의 페이지에서 아이콘을 클릭해 사용이 가능합니다.
+
 일정 시간이 지나도 자동으로 로그아웃되지 않게끔 하는 기능입니다.
 
 '켜짐' 상태가 되면 지속적으로 신호를 보내 로그아웃되지 않게끔 합니다.
@@ -55,6 +57,8 @@
   <img src="https://i.imgur.com/deD2cq1.png" alt="playback-rate panel" height="220">
 </p>
 
+강의 페이지에서 아이콘을 클릭해 사용이 가능합니다.
+
 강의를 모두 듣지 않고도 강의 동영상의 속도 및 위치를 변경할 수 있게 합니다.
 
 #### 유의사항
@@ -67,6 +71,8 @@
   <img src="https://i.imgur.com/Doev26S.png" alt="download this video" height="220">
 </p>
 
+*강의 영상 페이지* 에서 아이콘을 클릭해 사용이 가능합니다.
+
 원본 비디오 링크를 이용하여 해당 강의를 다운로드합니다.
 
 1. `동영상 속도 및 위치 변경` 기능을 켜 주세요
@@ -78,6 +84,8 @@
 <p align="center">
   <img src="https://i.imgur.com/tDa9zPR.png" height="220">
 </p>
+
+*강의 영상 페이지* 에서 아이콘을 클릭해 사용이 가능합니다.
 
 간혹 `이 강의 다운로드` 기능이 정상적으로 동작하지 않을 때가 있습니다.
 
@@ -93,11 +101,6 @@
   <img src="https://i.imgur.com/CkctUQ7.png" height="180">
   <img src="https://i.imgur.com/JpQBmKB.png" height="180">
 </p>
-
-#### 유의사항
-
-* `이 강의 다운로드` 기능이 정상적으로 동작하지 않는다면, 아래의 '강의 비디오 주소'를 복사한 뒤
-* 인터넷 주소창에 
 
 ## 변경사항
 
