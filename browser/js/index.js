@@ -77,25 +77,42 @@ window.addEventListener('load', () => {
 
       // get media information
       const mediaInfo = (await (await fetch(`https://commons.sch.ac.kr/viewer/ssplayer/uniplayer_support/content.php?content_id=${contentId}`)).text());
-      const mediaUri = mediaInfo.match(/\<media_uri\>(.*?)\<\/media_uri\>/)[1];
-      const ext = mediaUri.split('').reverse().join('').match(/^(.*?)\./)[1].split('').reverse().join('');
-      const title = mediaInfo.match(/\<title\>(.*?)\<\/title\>/)[1].replace('<![CDATA[', '').replace(']]>', '').replace(/[\s]|[\t]/g, '_');
-      const safeTitle = title.replace(/\\|\/|\?|\%|\*|\:|\||\"|\<|\>|\./g, '-');
 
-      // set video link
-      const videoLinkTarget = document.querySelector('h4[video-link] > input');
-      videoLinkTarget.value = mediaUri;
-      videoLinkTarget.addEventListener('click', () => videoLinkTarget.select());
+      // download button render target
+      const downloadRenderer = document.querySelector('div[video-download]');
 
-      // video download
-      document.querySelector('h3[video-download]')
-        .addEventListener('click', () => {
-          // download
+      // download button generator
+      const downloadButtonGen = (uri, ind) => {
+        const el = document.createElement('h3');
+
+        el.classList.add('btn');
+        el.innerText = `${ind} 번째 강의 영상 다운로드`;
+
+        el.addEventListener('click', () =>
           chrome.downloads.download({
-            url: mediaUri,
-            filename: `${safeTitle}.${ext}`,
-          });
-        });
+            url: uri,
+            filename: `lms-video-${ind}.mp4`,
+          }));
+
+        return el;
+      };
+
+      // get video files uri
+      mediaInfo
+        // parse video uri
+        .replace(/>/g, '\n')
+        .match(/sch1000001.*?\.mp4/gm) // assume video ext is mp4
+
+        // distinct uri
+        .reduce((r, uri) => {
+          r.push(r.includes(uri) ? undefined : uri);
+          return r;
+        }, [])
+        .filter((uri) => uri !== undefined)
+        .map((uri) => `https://sch.commonscdn.com/contents4/${uri}`) // assume domain and dir name
+
+        // set download button
+        .forEach((uri, ind) => downloadRenderer.appendChild(downloadButtonGen(uri, ind + 1)));
     }
   });
 });
