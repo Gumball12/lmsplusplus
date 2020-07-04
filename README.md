@@ -65,10 +65,10 @@
 
 * 실제 수강 시간은 배속이 아닌 정상적인 속도로 시청한 시간이 적용됩니다.
 
-### 이 강의 다운로드
+### 강의 다운로드
 
 <p align="center">
-  <img src="https://i.imgur.com/Doev26S.png" alt="download this video" height="220">
+  <img src="https://i.imgur.com/8PHha2l.png" alt="download this video" height="220">
 </p>
 
 *강의 영상 페이지* 에서 아이콘을 클릭해 사용이 가능합니다.
@@ -79,28 +79,9 @@
 1. 다운로드를 원하는 강의 영상에 접속해주세요
 1. 확장 프로그램 아이콘을 누른 뒤, '이 강의 다운로드' 버튼을 클릭해주세요
 
-### 강의 비디오 주소
+#### 유의사항
 
-<p align="center">
-  <img src="https://i.imgur.com/tDa9zPR.png" height="220">
-</p>
-
-*강의 영상 페이지* 에서 아이콘을 클릭해 사용이 가능합니다.
-
-간혹 `이 강의 다운로드` 기능이 정상적으로 동작하지 않을 때가 있습니다.
-
-이 경우, 강의 비디오 주소를 이용하여 다운로드가 가능합니다.
-
-1. 강의 비디오의 주소를 클릭하여 선택한 뒤, 복사해주세요
-1. 복사한 주소를 인터넷 창에 붙여넣기해주세요
-1. 우측 하단 메뉴 버튼을 클릭한 뒤, `다운로드` 해주세요
-
-사진으로 보면 다음과 같습니다.
-
-<p align="center">
-  <img src="https://i.imgur.com/CkctUQ7.png" height="180">
-  <img src="https://i.imgur.com/JpQBmKB.png" height="180">
-</p>
+* 영상이 두 개 이상인 경우, 다운로드 버튼의 개수가 그에 맞춰 늘어납니다.
 
 ## 변경사항
 
