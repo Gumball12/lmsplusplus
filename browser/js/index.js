@@ -100,16 +100,26 @@ window.addEventListener('load', () => {
       // get video files uri
       mediaInfo
         // parse video uri
-        .replace(/>/g, '\n')
-        .match(/sch1000001.*?\.mp4/gm) // assume video ext is mp4
+        .replace(/>|</g, '\n')
+        .match(/https:\/\/.*?\.mp4$/gm) // video ext must be 'mp4'
 
-        // distinct uri
+        // extract file name
         .reduce((r, uri) => {
-          r.push(r.includes(uri) ? undefined : uri);
+          r.push([uri, uri.split('').reverse().join('').match(/^(4pm.*?)\//)[1].split('').reverse().join('')]);
           return r;
         }, [])
-        .filter((uri) => uri !== undefined)
-        .map((uri) => `https://sch.commonscdn.com/contents4/${uri}`) // assume domain and dir name
+
+        // distinct uri
+        .reduce((r, [uri, filename], ind, uris) => {
+          if (r.every(([_uri, _filename]) => uri === _uri || filename !== _filename)) {
+            r.push([uri, filename]);
+          }
+
+          return r;
+        }, [])
+
+        // extract file uri
+        .map(([uri]) => uri)
 
         // set download button
         .forEach((uri, ind) => downloadRenderer.appendChild(downloadButtonGen(uri, ind + 1)));
