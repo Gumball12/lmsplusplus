@@ -2,7 +2,9 @@ window.addEventListener('load', () => {
   chrome.tabs.query({
     active: true,
     windowId: chrome.windows.WINDOW_ID_CURRENT,
-  }, ([{ url }]) => {
+  }, ([{
+    url
+  }]) => {
     const pageName = [
       ['https://lms.sch.ac.kr/', 'course'],
       ['https://commons.sch.ac.kr/', 'video'],
@@ -18,7 +20,9 @@ window.addEventListener('load', () => {
     document.querySelectorAll('a').forEach((el) => {
       el.addEventListener('click', (evt) => {
         evt.preventDefault();
-        chrome.tabs.create({ url: el.getAttribute('href') });
+        chrome.tabs.create({
+          url: el.getAttribute('href')
+        });
       });
     });
 
@@ -45,22 +49,26 @@ window.addEventListener('load', () => {
       ['session', 'playback', 'course'].forEach((name) => {
         // get el
         const target = document.querySelector(`span.btn[${name}]`);
-  
+
         // get setting values
         chrome.storage.sync.get([name], (st) => {
           target.classList.add(!!st[name] ? 'on' : 'off');
-  
+
           target.addEventListener('click', () => {
             // update setting value
-            chrome.storage.sync.set({ [name]: !(!!st[name]) });
-  
+            chrome.storage.sync.set({
+              [name]: !(!!st[name])
+            });
+
             // reload page
-            chrome.tabs.getSelected(null, ({ id }) => {
+            chrome.tabs.getSelected(null, ({
+              id
+            }) => {
               chrome.tabs.executeScript(id, {
                 code: 'window.location.reload();',
               });
             });
-  
+
             // reload extension
             window.location.reload();
           });
@@ -88,7 +96,7 @@ window.addEventListener('load', () => {
         el.classList.add('btn');
         el.innerText = `${ind} 번째 강의 영상 다운로드`;
 
-        el.addEventListener('click', () =>
+        el.addEventListener('click', async () =>
           chrome.downloads.download({
             url: uri,
             filename: `lms-video-${ind}.mp4`,
@@ -100,26 +108,16 @@ window.addEventListener('load', () => {
       // get video files uri
       mediaInfo
         // parse video uri
-        .replace(/>|</g, '\n')
-        .match(/https:\/\/.*?\.mp4$/gm) // video ext must be 'mp4'
+        .match(/https:\/\/sch\.commonscdn\.com.*?\.mp4/gm) // video ext must be 'mp4'
 
-        // extract file name
-        .reduce((r, uri) => {
-          r.push([uri, uri.split('').reverse().join('').match(/^(4pm.*?)\//)[1].split('').reverse().join('')]);
-          return r;
-        }, [])
-
-        // distinct uri
-        .reduce((r, [uri, filename], ind, uris) => {
-          if (r.every(([_uri, _filename]) => uri === _uri || filename !== _filename)) {
-            r.push([uri, filename]);
+        // remove duplicated uris
+        .reduce((r, targetUri) => {
+          if (r.every((uri) => uri !== targetUri)) {
+            r.push(targetUri);
           }
 
           return r;
         }, [])
-
-        // extract file uri
-        .map(([uri]) => uri)
 
         // set download button
         .forEach((uri, ind) => downloadRenderer.appendChild(downloadButtonGen(uri, ind + 1)));
