@@ -41,6 +41,9 @@ module.exports = {
       filename: 'lmsplusplus.zip',
     }),
     new Remover({
+      before: {
+        root: './build',
+      },
       after: {
         root: './build',
         include: [
