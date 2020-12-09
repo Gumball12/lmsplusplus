@@ -20,7 +20,7 @@
   ],
 
   "browser_action": {
-    "default_popup": "build/browser/index.html",
+    "default_popup": "browser/index.html",
     "default_icon": {
       "16": "images/favicon-16x16.png",
       "32": "images/favicon-32x32.png",
@@ -35,7 +35,7 @@
         "https://lms.sch.ac.kr/*",
         "https://commons.sch.ac.kr/*"
       ],
-      "js": ["build/contentScript.js"],
+      "js": ["contentScript.js"],
       "run_at": "document_end"
     }
   ]
