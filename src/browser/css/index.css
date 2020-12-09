@@ -8,6 +8,10 @@ header {
   margin-bottom: 1.5em;
 }
 
+header h1 span {
+  font-size: 16px;
+}
+
 main {
   margin-top: 1em;
   margin-bottom: 2em;
