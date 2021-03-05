@@ -1,0 +1,14 @@
+html, body {
+  margin: 0;
+}
+
+body {
+  width: var(--body-width);
+  max-width: var(--body-width);
+  padding: var(--body-padding);
+  background-color: var(--white-grey-color);
+}
+
+* {
+  cursor: default;
+}

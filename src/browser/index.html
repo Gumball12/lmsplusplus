@@ -4,27 +4,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="stylesheet" href="./css/env.css" />
-    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./src/style.css">
   </head>
+
   <body>
-    <header>
-      <h1>LMS++ <span>v1.2.11</span></h1>
-    </header>
-
-    <main>
-      <h3 page-course>로그인 유지 : <span class="btn" session></span></h3>
-      <h3 page-course>동영상 속도 및 위치 변경 : <span class="btn" playback></span></h3>
-      <h3 class="hide">자동 수강 : <span class="btn" course></span></h3>
-      <div video-download page-video></div>
-    </main>
-
-    <footer>
-      <p class="float-left">@shj (<a href="https://github.com/Gumball12">GitHub</a>)</p>
-      <p class="float-right"><a href="https://www.notion.so/gumball12/LMS-69fdd272e4bd4280bf9547195d8cf2b3">사용 방법</a></p>
-    </footer>
-
-    <script src="./js/index.js"></script>
+    <lms-app></lms-app>
+    <script type="module" src="./src/main.js"></script>
   </body>
 </html>

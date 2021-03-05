@@ -1,0 +1,16 @@
+:root {
+  --body-width: 280px;
+  --body-padding: 22px;
+
+  --headline-1-font-size: 22px;
+  --headline-2-font-size: 18px;
+  --body-font-size: 12px;
+
+  --black-color: #212121;
+  --white-color: #fff;
+  --grey-color: #ccc;
+  --dark-grey-color: #666;
+  --white-grey-color: #fafafa;
+  --success-color: #5cd184;
+  --error-color: #d17e7b;
+}
