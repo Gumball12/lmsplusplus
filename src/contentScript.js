@@ -121,11 +121,15 @@
       }
 
       // re-conn session each 30 seconds
-      [
-        window.location.href,
-        'https://lms.sch.ac.kr/',
-        'https://lms.sch.ac.kr/course/index.php',
-      ].forEach((name) => fetch(name), 30000);
+      setInterval(() => {
+        [
+          window.location.href,
+          'https://lms.sch.ac.kr/',
+          'https://lms.sch.ac.kr/course/index.php',
+        ].forEach((name) => fetch(name));
+        console.log('!');
+      }, 30000);
+
       return this;
     }
 
