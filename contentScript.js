@@ -43,14 +43,15 @@
         return this;
       }
 
-      document.querySelectorAll('div.activityinstance > a > img[alt="동영상"]')
-        .forEach(({ parentElement }) => {
+      [...document.querySelectorAll('a')]
+        .filter((el) => el.getAttribute('onclick') !== null && el.getAttribute('onclick').includes('https://lms.sch.ac.kr/mod/xncommons/viewer.php?'))
+        .forEach((el) => {
           // get origin link
-          const link = parentElement.outerHTML.match(/window\.open\('(.+?)'/)[1];
+          const link = el.outerHTML.match(/window\.open\('(.+?)'/)[1];
 
           // replacement
           const rpel = document.createElement('a');
-          rpel.innerText = parentElement.textContent;
+          rpel.innerText = el.textContent;
           rpel.href = '#';
 
           rpel.addEventListener('click', async (evt) => {
@@ -66,7 +67,7 @@
             window.open(videoLink, '_blank');
           });
 
-          parentElement.parentElement.replaceChild(rpel, parentElement);
+          el.parentElement.replaceChild(rpel, el);
         });
 
       return this;
@@ -127,7 +128,6 @@
           'https://lms.sch.ac.kr/',
           'https://lms.sch.ac.kr/course/index.php',
         ].forEach((name) => fetch(name));
-        console.log('!');
       }, 30000);
 
       return this;
