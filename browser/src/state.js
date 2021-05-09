@@ -98,7 +98,7 @@ window.customElements.define(
             mediaInfo
               // parse video uri
               .replace(/>|</g, '\n')
-              .match(/https:\/\/sch\.commonscdn\.com.*?(\[MEDIA_FILE\]|\.mp4)/gm)
+              .match(/https:\/\/commons\.sch\.ac\.kr.*?(\[MEDIA_FILE\]|\.mp4)/gm)
 
               // remove duplicated uris
               .reduce((r, targetUri) => {
